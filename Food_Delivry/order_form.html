@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(/.vscode/easy-order-scaled.jpg);
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgb(125, 157, 157);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .place-order {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+   <center> <h1>Order Form</h1></center>
+    <div class="form-container">
+        <form id="order-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="payment-method">Payment Method:</label>
+                <select id="payment-method" required>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="PayPal">PayPal</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" rows="4" required></textarea>
+            </div>
+            <button type="button" class="place-order" onclick="submitOrder()">Submit Order</button>
+        </form>
+    </div>
+
+    <script>
+        function submitOrder() {
+            const orderForm = document.getElementById('order-form');
+            const orderDetails = {
+                name: orderForm.name.value,
+                email: orderForm.email.value,
+                paymentMethod: orderForm['payment-method'].value,
+                address: orderForm.address.value
+            };
+
+            localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+            window.location.href = 'order_summary.html';
+        }
+    </script>
+</body>
+</html>

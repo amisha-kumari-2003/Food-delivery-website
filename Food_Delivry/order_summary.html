@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(/.vscode/easy-order-scaled.jpg);
+        }
+        .cart {
+            margin-top: 20px;
+        }
+        .cart ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .cart ul li {
+            margin: 5px 0;
+        }
+        .place-order {
+            margin-top: 20px;
+        }
+        .details {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+   <center> <h1 style="color: aqua;">Order Summary</h1></center>
+    <div class="details" style="background-color: rgb(152, 177, 177);">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <h2>Order Details</h2>
+        <p id="order-details"></p>
+        <button class="place-order" onclick="confirmOrder()">Confirm Order</button>
+    </div>
+
+    <script>
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || {};
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            for (const item in cart) {
+                const listItem = document.createElement('li');
+                listItem.textContent = '${cart[item]} x ${item}';
+                cartItems.appendChild(listItem);
+            }
+        }
+
+        function loadOrderDetails() {
+            const orderDetails = JSON.parse(localStorage.getItem('orderDetails')) || {};
+            const orderDetailsContainer = document.getElementById('order-details');
+            orderDetailsContainer.innerHTML = `
+                <strong>Name:</strong> ${orderDetails.name}<br>
+                <strong>Email:</strong> ${orderDetails.email}<br>
+                <strong>Payment Method:</strong> ${orderDetails.paymentMethod}<br>
+                <strong>Address:</strong> ${orderDetails.address}
+            `;
+        }
+
+        function confirmOrder() {
+            alert("Your order has been confirmed!");
+            localStorage.removeItem('cart');
+            localStorage.removeItem('orderDetails');
+            window.location.href = 'cart.html';
+        }
+
+        loadCart();
+        loadOrderDetails();
+    </script>
+</body>
+</html>

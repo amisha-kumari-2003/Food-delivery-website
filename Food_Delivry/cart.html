@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(186, 216, 206);
+        }
+
+        header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header nav ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+    header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .item img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .item .name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .item .price {
+            color: green;
+            margin-bottom: 5px;
+        }
+        .item .description {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .cart {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cart-items {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 250px;
+            overflow-y: auto;
+            max-height: 300px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .cart-items.active {
+            display: block;
+        }
+        .cart-items ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cart-items ul li {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .cart-items ul li:last-child {
+            border-bottom: none;
+        }
+        .cart-items .remove-btn {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .cart-items .remove-btn:hover {
+            background-color: #e74c3c;
+        }
+        .place-order {
+            margin-top: 20px;
+        }
+        .item{
+            background-color: rgb(145, 172, 172);
+        }
+        .btn{
+            background-color: #2f62b5;
+        }
+        .btn:hover{
+            color: yellow;
+        }
+        .cart{
+            background-color: #b52f7f;
+        }
+    
+        .cart:hover{
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="food_ delivey.html">Home</a></li>
+                <li><a href="cart.html">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <center><h1 style="margin-top:10px ;">MENU LIST</h1></center>
+
+    <div class="grid-container">
+        <div class="item">
+            <img src="menu/burger.jpg" alt="">
+            <div class="name">Burger</div>
+            <div class="price">$10.00</div>
+            <div class="description">Speciy Burger  made from lots of Stuffing.</div>
+            <button class="btn" onclick="addToCart('Burger', 10.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/chicken.jpg" alt="">
+            <div class="name">Chicken</div>
+            <div class="price">$20.00</div>
+            <div class="description">Delicious chicken with a tasty flavour.</div>
+            <button class="btn" onclick="addToCart('Chicken', 1.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/chole.jpg" alt="">
+            <div class="name">Chole Chaval</div>
+            <div class="price">$20.00</div>
+            <div class="description">Fresh and juicy apples.</div>
+            <button class="btn" onclick="addToCart('Chole Chaval', 20.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/biryani.jpg" alt="Apple">
+            <div class="name">Biryani</div>
+            <div class="price">$10.00</div>
+            <div class="description">Delicious chicken biryani with a leg piece.</div>
+            <button class="btn" onclick="addToCart('Biryani', 10.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/dhokla.jpg" alt="">
+            <div class="name">Dhokla</div>
+            <div class="price">$10.00</div>
+            <div class="description">Soft and fluffy Gujarati snack made from fermented batter.</div>
+            <button class="btn" onclick="addToCart('Dhokla', 10.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/egg.jpg" alt="">
+            <div class="name">Egg</div>
+            <div class="price">$1.00</div>
+            <div class="description">Delicious fish with a tasty flavour.</div>
+            <button class="btn" onclick="addToCart('Egg', 1.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/fish.jpg" alt="Apple">
+            <div class="name">Fish</div>
+            <div class="price">$13.00</div>
+            <div class="description">Delicious fish with a tasty flavour.</div>
+            <button class="btn" onclick="addToCart('Fish', 13.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/panner-chilli.jpg" alt="Apple">
+            <div class="name">Paneer-chilli</div>
+            <div class="price">$13.00</div>
+            <div class="description">Delicious paneer-chilli with a tasty flavour.</div>
+            <button class="btn" onclick="addToCart('Paneer-chilli', 13.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/paneer-masala.jpg" alt="">
+            <div class="name">Paneer-masala</div>
+            <div class="price">$13.00</div>
+            <div class="description">Fresh paneer-masala made with the finest ingredients.</div>
+            <button class="btn" onclick="addToCart('Paneer-masala', 13.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/momos.jpg" alt="">
+            <div class="name">Momos</div>
+            <div class="price">$13.00</div>
+            <div class="description">Delicious momos with a variety of sauces.</div>
+            <button class="btn" onclick="addToCart('Momos', 13.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/pasta.jpg" alt="">
+            <div class="name">Pasta</div>
+            <div class="price">$13.00</div>
+            <div class="description">Delicious pasta with a variety of sauces.</div>
+            <button class="btn " onclick="addToCart('Pasta', 13.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <img src="menu/pizza.jpg" alt="">
+            <div class="name">Pizza</div>
+            <div class="price">$13.00</div>
+            <div class="description">Delicious cheesy pizza with a variety of toppings.</div>
+            <button class="btn" onclick="addToCart('Pizza', 13.00)">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="cart" onclick="toggleCart()">
+        🛒 Cart (<span id="cart-count">0</span>)
+        <div class="cart-items">
+            <ul id="cart-items-list"></ul>
+            <button class="place-order" onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+
+    <script>
+        const cart = {};
+
+        function addToCart(itemName, itemPrice) {
+            if (cart[itemName]) {
+                cart[itemName].quantity++;
+            } else {
+                cart[itemName] = { quantity: 1, price: itemPrice };
+            }
+            updateCart();
+            updateCartIcon();
+            alert('${itemName} has been added to your cart.');
+        }
+
+        function updateCart() {
+            const cartItemsList = document.getElementById('cart-items-list');
+            cartItemsList.innerHTML = '';
+            let totalCount = 0;
+            for (const item in cart) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${cart[item].quantity} x ${item} - $${(cart[item].quantity * cart[item].price).toFixed(2)}</span>
+                    <button class="remove-btn" onclick="removeFromCart('${item}')">Remove</button>
+                `;
+                cartItemsList.appendChild(listItem);
+                totalCount += cart[item].quantity;
+            }
+            document.getElementById('cart-count').textContent = totalCount;
+        }
+
+        function placeOrder() {
+            if (Object.keys(cart).length === 0) {
+                alert("Your cart is empty. Add items to your cart before placing an order.");
+                return;
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            window.location.href = 'order_form.html';
+        }
+
+        function toggleCart() {
+            const cartItems = document.querySelector('.cart-items');
+            cartItems.classList.toggle('active');
+        }
+
+        // Function to remove item from cart
+        function removeFromCart(itemName) {
+            if (cart[itemName].quantity === 1) {
+                delete cart[itemName];
+            } else {
+                cart[itemName].quantity--;
+            }
+            updateCart();
+            updateCartIcon();
+        }
+
+        updateCart();
+
+        // Function to update cart icon initially
+        function updateCartIcon() {
+            const totalCount = Object.keys(cart).reduce((total, key) => total + cart[key].quantity, 0);
+            document.getElementById('cart-count').textContent = totalCount;
+        }
+    </script>
+</body>
+</html>
